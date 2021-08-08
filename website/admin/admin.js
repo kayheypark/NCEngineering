@@ -3,6 +3,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const admin = express();
 require('../../library/database.js');
+const fn = require('../../library/function.js');
 
 // Body Parser
 admin.use(express.urlencoded({extended: false}));
@@ -29,7 +30,9 @@ admin.get('/main', (req, res) => {
 });
 
 admin.get('/profile', (req, res) => {
-    res.render('pages/mypage/profile', {pagename: '내 프로필'});
+    // res.render('pages/mypage/profile', {pagename: '내 프로필'});
+    //res.send(`<script>alert('준비중입니다. 이전페이지로 돌아갑니다.');history.back();</script>`);
+    fn.serviceReady(res);
 });
 admin.get('/changepassword', (req, res) => {
     res.render('pages/mypage/changepassword', {pagename: '비밀번호 변경'});
