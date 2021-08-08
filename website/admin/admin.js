@@ -31,7 +31,6 @@ admin.get('/main', (req, res) => {
 
 admin.get('/profile', (req, res) => {
     // res.render('pages/mypage/profile', {pagename: '내 프로필'});
-    //res.send(`<script>alert('준비중입니다. 이전페이지로 돌아갑니다.');history.back();</script>`);
     fn.serviceReady(res);
 });
 admin.get('/changepassword', (req, res) => {
@@ -39,19 +38,23 @@ admin.get('/changepassword', (req, res) => {
 });
 
 admin.get('/company', (req, res) => {
-    res.render('pages/basic/company', {pagename: '기업정보'});
+    //res.render('pages/basic/company', {pagename: '기업정보'});
+    fn.serviceReady(res);
 });
 admin.get('/termsofuse', (req, res) => {
-    res.render('pages/basic/termsofuse', {pagename: '이용약관'});
+    //res.render('pages/basic/termsofuse', {pagename: '이용약관'});
+    fn.serviceReady(res);
 });
 admin.get('/privacy', (req, res) => {
-    res.render('pages/basic/privacy', {pagename: '개인정보 처리방침'});
+    //res.render('pages/basic/privacy', {pagename: '개인정보 처리방침'});
+    fn.serviceReady(res);
 });
 admin.get('/faq', (req, res) => {
     res.render('pages/basic/faq', {pagename: '자주묻는질문'});
 });
 admin.get('/footer', (req, res) => {
-    res.render('pages/basic/footer', {pagename: '하단정보'});
+    //res.render('pages/basic/footer', {pagename: '하단정보'});
+    fn.serviceReady(res);
 });
 
 admin.get('/product/list', (req, res) => {
@@ -78,36 +81,58 @@ admin.get('/inquiry/edit', (req, res) => {
 });
 
 admin.get('/board/list', (req, res) => {
-    res.render('pages/board/list', {pagename: '게시판 리스트'});
+    //res.render('pages/board/list', {pagename: '게시판 리스트'});
+    fn.serviceReady(res);
 });
 admin.get('/board/view', (req, res) => {
-    res.render('pages/board/view', {pagename: '게시판 상세화면'});
+    //res.render('pages/board/view', {pagename: '게시판 상세화면'});
+    fn.serviceReady(res);
 });
 admin.get('/board/edit', (req, res) => {
-    res.render('pages/board/edit', {pagename: '게시판 수정'});
+    //res.render('pages/board/edit', {pagename: '게시판 수정'});
+    fn.serviceReady(res);
 });
 admin.get('/board/new', (req, res) => {
-    res.render('pages/board/new', {pagename: '게시판 등록'});
+    //res.render('pages/board/new', {pagename: '게시판 등록'});
+    fn.serviceReady(res);
 });
 
 //Api List
-admin.get('', (req, res) => {
-    global.pool.getConnection((err, connection) => {
-        if (err) throw err;
-        console.log(`connected as id ${connection.threadId}`);
+//아이디로 회원정보 조회
+admin.post('/Api/Member', (req, res) => {
 
-        connection.query('SELECT * FROM product', (err, rows) => {
-            connection.release(); // return the connection to pool
+    let Email = fn.getDefault(req.body.Email, '');
+    let query = `SELECT * FROM member WHERE Email = '${Email}'`;
 
-            if (!err) {
-                res.send(rows);
-            } else {
-                console.log(err);
-            };
+    if (Email.length > 0) {
 
+        global.pool.getConnection((err, connection) => {
+    
+            if (err) throw err;
+    
+            connection.query(query, (err, rows) => {
+                connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
+    
+                if (!err) {
+                    if ( rows.length > 0 ) {
+                        return res.send(rows);
+                    } else {
+                        return res.send({ msg: '해당 이메일로 등록된 계정이 존재하지 않습니다.' });
+                    };
+                } else {
+                    console.log(err);
+                };
+    
+            });
+    
         });
 
-    });
+    } else {
+
+        return res.send({ msg: '이메일을 입력해주세요' });
+
+    };
+
 });
 
 module.exports = admin;
