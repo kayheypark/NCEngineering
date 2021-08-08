@@ -98,38 +98,57 @@ admin.get('/board/new', (req, res) => {
 });
 
 //Api List
-//아이디로 회원정보 조회
+//로그인
 admin.post('/Api/Member', (req, res) => {
 
     let Email = fn.getDefault(req.body.Email, '');
-    let query = `SELECT * FROM member WHERE Email = '${Email}'`;
+    let Password = fn.getDefault(req.body.Password, '');
 
-    if (Email.length > 0) {
+    let query = `SELECT * FROM member WHERE Email = '${Email}' AND Password = '${Password}'`;
 
-        global.pool.getConnection((err, connection) => {
-    
-            if (err) throw err;
-    
-            connection.query(query, (err, rows) => {
-                connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
-    
-                if (!err) {
-                    if ( rows.length > 0 ) {
-                        return res.send(rows);
+    if ( Email.length > 0 ) {
+
+        if ( Password.length > 0 ) {
+
+            global.pool.getConnection((err, connection) => {
+        
+                if (err) throw err;
+        
+                connection.query(query, (err, rows) => {
+
+                    connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
+        
+                    if ( !err ) {
+
+                        if ( rows.length > 0 ) {
+
+                            return res.send({ look: true, msg: '대상을 발견했습니다', data: rows });
+                            
+                        } else {
+
+                            return res.send({ look: true, msg: '대상이 없습니다', data: null });
+
+                        };
+
                     } else {
-                        return res.send({ msg: '해당 이메일로 등록된 계정이 존재하지 않습니다.' });
+
+                        console.log(err);
+
                     };
-                } else {
-                    console.log(err);
-                };
-    
+        
+                });
+        
             });
-    
-        });
+
+        } else {
+
+            return res.send({ look: false, msg: '비밀번호를 입력해주세요', data: null });
+
+        };
 
     } else {
 
-        return res.send({ msg: '이메일을 입력해주세요' });
+        return res.send({ look: false, msg: '이메일을 입력해주세요', data: null });
 
     };
 
