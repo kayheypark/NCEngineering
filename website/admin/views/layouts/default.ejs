@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<noscript>해당 브라우저는 자바스크립트를 지원하지 않습니다</noscript>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= pagename %> - 관리자</title>
+<!-- 전역스타일 -->
+<%- include('../partials/static/global-styles.ejs') %>
+<!-- //전역스타일 -->
+<!-- 지역스타일 -->
+<%- script %>
+<!-- //지역스타일 -->
+</head>
+<body id="page-top">
+    <div id="wrapper">
+
+        <%- include('../partials/sidemenu.ejs') %>
+
+        <main class="w-100">
+            <%- body %>
+            <%- include('../partials/footer.ejs') %>
+        </main>
+
+        <%- include('../partials/totop.ejs') %>
+
+    </div>
+<!-- 전역스크립트 -->
+<%- include('../partials/static/global-scripts.ejs') %>
+<!-- //전역스크립트 -->
+<!-- 지역스크립트 -->
+<%- script %>
+<!-- //지역스크립트 -->
+</body>
+</html>

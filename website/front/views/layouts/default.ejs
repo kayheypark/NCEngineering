@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<noscript>해당 브라우저는 자바스크립트를 지원하지 않습니다</noscript>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NC엔지니어링 - <%= pagename %></title>
+<!-- 전역스타일 -->
+<%- include('../partials/static/global-styles.ejs') %>
+<!-- //전역스타일 -->
+<!-- 지역스타일 -->
+<%- script %>
+<!-- //지역스타일 -->
+</head>
+<body>
+    <div id="app">
+
+        <%- include('../partials/header.ejs') %>
+
+        <main>
+            <%- body %>
+        </main>
+
+        <%- include('../partials/footer.ejs') %>
+
+    </div>
+<!-- 전역스크립트 -->
+<%- include('../partials/static/global-scripts.ejs') %>
+<!-- //전역스크립트 -->
+<!-- 지역스크립트 -->
+<%- script %>
+<!-- //지역스크립트 -->
+</body>
+</html>
