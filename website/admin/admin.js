@@ -4,6 +4,10 @@ const expressLayouts = require('express-ejs-layouts');
 const admin = express();
 require('../../library/database.js');
 const fn = require('../../library/function.js');
+const jwtSecretKey = require('../../config/jwt/secretKey');
+const jwtOptions = require('../../config/jwt/options');
+
+const jwt = require('jsonwebtoken');
 
 // Body Parser
 admin.use(express.urlencoded({extended: false}));
@@ -122,11 +126,23 @@ admin.post('/Api/Member', (req, res) => {
 
                         if ( rows.length > 0 ) {
 
-                            return res.send({ look: true, msg: '대상을 발견했습니다', data: rows });
+                            //아래 jwtSecretKey와 jwtOptions는 보안사항이므로 비공개합니다.
+                            //다만 형식은 다음과 같습니다.
+                            // jwtSecretKey는 'SeCrEtKeY'처럼 String을 반환합니다.
+                            // jwtOptions은 {
+                            //                  algorithm : "HS256", // 해싱 알고리즘( 알고리즘의 더 많은 종류는 https://jwt.io/ 에 있습니다.)
+                            //                  expiresIn : "30m",  // 토큰 유효 기간
+                            //                  issuer : "issuer" // 발행자
+                            //              }
+                            //처럼 Object를 반환합니다.
+
+                            const token = jwt.sign({memberSeq: rows[0].MemberSeq}, jwtSecretKey, jwtOptions);
+
+                            return res.send({ look: true, msg: '대상을 발견했습니다', data: rows[0], token: token });
                             
                         } else {
 
-                            return res.send({ look: true, msg: '대상이 없습니다', data: null });
+                            return res.send({ look: true, msg: '대상이 없습니다', data: null, token: null });
 
                         };
 
@@ -142,13 +158,13 @@ admin.post('/Api/Member', (req, res) => {
 
         } else {
 
-            return res.send({ look: false, msg: '비밀번호를 입력해주세요', data: null });
+            return res.send({ look: false, msg: '비밀번호를 입력해주세요', data: null, token: null });
 
         };
 
     } else {
 
-        return res.send({ look: false, msg: '이메일을 입력해주세요', data: null });
+        return res.send({ look: false, msg: '이메일을 입력해주세요', data: null, token: null });
 
     };
 
