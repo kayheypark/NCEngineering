@@ -1,5 +1,5 @@
-﻿function ServiceReady(res) {
-    return (res.send(`<script>alert('준비중입니다. 이전페이지로 돌아갑니다.');history.back();</script>`));
+﻿function BlockPage(res) {
+    return (res.send(`<script>alert('해당 기능은 제작 대기중입니다.');history.back();</script>`));
 };
 
 function GetDefault(str, defaultValue) {
@@ -24,5 +24,5 @@ function GetDefault(str, defaultValue) {
 
 };
 
-module.exports.serviceReady = ServiceReady;
+module.exports.blockPage = BlockPage;
 module.exports.getDefault = GetDefault;

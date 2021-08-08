@@ -31,7 +31,7 @@ admin.get('/main', (req, res) => {
 
 admin.get('/profile', (req, res) => {
     // res.render('pages/mypage/profile', {pagename: '내 프로필'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/changepassword', (req, res) => {
     res.render('pages/mypage/changepassword', {pagename: '비밀번호 변경'});
@@ -39,22 +39,22 @@ admin.get('/changepassword', (req, res) => {
 
 admin.get('/company', (req, res) => {
     //res.render('pages/basic/company', {pagename: '기업정보'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/termsofuse', (req, res) => {
     //res.render('pages/basic/termsofuse', {pagename: '이용약관'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/privacy', (req, res) => {
     //res.render('pages/basic/privacy', {pagename: '개인정보 처리방침'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/faq', (req, res) => {
     res.render('pages/basic/faq', {pagename: '자주묻는질문'});
 });
 admin.get('/footer', (req, res) => {
     //res.render('pages/basic/footer', {pagename: '하단정보'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 
 admin.get('/product/list', (req, res) => {
@@ -82,19 +82,19 @@ admin.get('/inquiry/edit', (req, res) => {
 
 admin.get('/board/list', (req, res) => {
     //res.render('pages/board/list', {pagename: '게시판 리스트'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/board/view', (req, res) => {
     //res.render('pages/board/view', {pagename: '게시판 상세화면'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/board/edit', (req, res) => {
     //res.render('pages/board/edit', {pagename: '게시판 수정'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 admin.get('/board/new', (req, res) => {
     //res.render('pages/board/new', {pagename: '게시판 등록'});
-    fn.serviceReady(res);
+    fn.blockPage(res);
 });
 
 //Api List
