@@ -42,15 +42,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>시험기</td>
-                                    <td>2021-01-01</td>
-                                    <td>2021-01-02</td>
-                                    <td>
-                                        <button class="btn btn-primary">수정</button>
-                                    </td>
-                                </tr>
+                                <% if ( data.length > 0 ) { %>
+                                    <% for ( [index, row] of data.entries() ) { %>
+                                        <tr>
+                                            <td><%= index+1 %></td>
+                                            <td><%= row.Name %></td>
+                                            <td><%= row.RegistDate %></td>
+                                            <td><%= row.LastUpdate %></td>
+                                            <td>
+                                                <a href="<%= row.ProductSeq %>" class="btn btn-primary btn-sm">수정</a>
+                                            </td>
+                                        </tr>
+                                    <% } %>
+                                <% } %>
                             </tbody>
                         </table>
                     </div>
