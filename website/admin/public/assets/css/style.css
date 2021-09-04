@@ -1,0 +1,42 @@
+.clamp, .clamp-2, .clamp-3, .clamp-4, .clamp-5, .clamp-6, .clamp-7, .clamp-8, .clamp-9 {
+  display: -webkit-box;
+  word-wrap: break-word;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  /* autoprefixer: on */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clamp-2 {
+  -webkit-line-clamp: 2;
+}
+
+.clamp-3 {
+  -webkit-line-clamp: 3;
+}
+
+.clamp-4 {
+  -webkit-line-clamp: 4;
+}
+
+.clamp-5 {
+  -webkit-line-clamp: 5;
+}
+
+.clamp-6 {
+  -webkit-line-clamp: 6;
+}
+
+.clamp-7 {
+  -webkit-line-clamp: 7;
+}
+
+.clamp-8 {
+  -webkit-line-clamp: 8;
+}
+
+.clamp-9 {
+  -webkit-line-clamp: 9;
+}
+/*# sourceMappingURL=style.css.map */
