@@ -1,19 +1,31 @@
 ﻿// Imports
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
+const multer = require('multer');
 const admin = express();
 require('../../library/database.js');
 const fn = require('../../library/function.js');
 const jwtSecretKey = require('../../config/jwt/secretKey');
 const jwtOptions = require('../../config/jwt/options');
-
 const jwt = require('jsonwebtoken');
+const path = require('path');
+const upload = multer({
+    storage: multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, 'upload/');
+      },
+      filename: function (req, file, cb) {
+        cb(null, new Date().valueOf() + path.extname(file.originalname));
+      }
+    })
+});
 
 // Body Parser
 admin.use(express.urlencoded({extended: false}));
 admin.use(express.json());
 
 // Static Files
+admin.use('up', express.static(__dirname + '/up'));
 admin.use('/assets', express.static(__dirname + '/public/assets'));
 admin.use('/vendor', express.static(__dirname + '/public/vendor'));
 
@@ -217,6 +229,16 @@ admin.post('/Api/Member', (req, res) => {
 
     };
 
+});
+
+// Multer Upload
+admin.post('/Api/upload', upload.single('file'), (req, res) => {
+    console.log(req.file);
+    res.json(req.file);
+});
+admin.post('/Api/upload', upload.array('file', 10), (req, res) => {
+    console.log(req.files);
+    res.json(req.files);
 });
 
 module.exports = admin;

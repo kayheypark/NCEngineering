@@ -11,7 +11,7 @@ app.use(vhost('admin.nceng.com', admin));
 app.use(vhost('www.nceng.com', front));
  
 app.use(express.static('static'));
- 
+
 app.use((req, res) => {
     res.status(404).send('Page Not Found!')
 });
