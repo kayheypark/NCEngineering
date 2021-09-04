@@ -62,7 +62,7 @@ admin.get('/footer', (req, res) => {
 });
 
 admin.get('/product/list', (req, res) => {
-    res.render('pages/product/list', {pagename: '제품 리스트'});
+    res.render('pages/product/list', {pagename: '제품 목록'});
 });
 admin.get('/product/view', (req, res) => {
     res.render('pages/product/view', {pagename: '제품 상세화면'});
@@ -75,7 +75,7 @@ admin.get('/product/new', (req, res) => {
 });
 
 admin.get('/inquiry/list', (req, res) => {
-    res.render('pages/inquiry/list', {pagename: '문의 리스트'});
+    res.render('pages/inquiry/list', {pagename: '문의 목록'});
 });
 admin.get('/inquiry/view', (req, res) => {
     res.render('pages/inquiry/view', {pagename: '문의 상세화면'});
@@ -85,8 +85,7 @@ admin.get('/inquiry/edit', (req, res) => {
 });
 
 admin.get('/board/list', (req, res) => {
-    //res.render('pages/board/list', {pagename: '게시판 리스트'});
-    fn.blockPage(res);
+    res.render('pages/board/list', {pagename: '공지사항 목록'});
 });
 admin.get('/board/view', (req, res) => {
     //res.render('pages/board/view', {pagename: '게시판 상세화면'});

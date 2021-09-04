@@ -1,1 +1,110 @@
-﻿list
+﻿<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+
+    <!-- Main Content -->
+    <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+            <!-- Sidebar Toggle (Topbar) -->
+            <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                <i class="fa fa-bars"></i>
+            </button>
+            <%- include('../../partials/header.ejs') %>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800"><%= pagename %></h1>
+            </div>
+
+            <!-- DataTales Example -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">목록</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>제품명</th>
+                                    <th>등록일</th>
+                                    <th>최근수정일</th>
+                                    <th>작업</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>시험기</td>
+                                    <td>2021-01-01</td>
+                                    <td>2021-01-02</td>
+                                    <td>
+                                        <button class="btn btn-primary">수정</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row">
+
+
+                <div class="col-lg-12 mb-4">
+
+                    <!-- Illustrations -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">현재 페이지 안내</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-center">
+                                제품 리스트를 확인할 수 있습니다
+                            </p>
+
+                            <div class="text-center">
+                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                    src="/vendor/img/undraw_Customer_survey_re_v9cj.svg" alt="...">
+                            </div>
+
+                            <!-- <p>Add some quality, svg illustrations to your project courtesy of <a
+                                    target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
+                                constantly updated collection of beautiful svg images that you can use
+                                completely free and without attribution!</p>
+                            <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
+                                unDraw &rarr;</a> -->
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+</div>
+<!-- End of Content Wrapper -->
+
+<link href="/vendor/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<script src="/vendor/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/vendor/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+</script>
