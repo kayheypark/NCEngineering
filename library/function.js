@@ -1,4 +1,20 @@
-﻿function BlockPage(res) {
+﻿function IsNullOrEmpty(obj) {
+    let result = true;
+
+    try {
+        if (obj !== null && obj !== undefined) {
+            if (String(obj).trim() !== "" && String(obj) !== "NaN") {
+                result = false;
+            }
+        }
+    } catch (e) {
+        result = true;
+    }
+
+    return result;
+};
+
+function BlockPage(res) {
     return (res.send(`<script>alert('해당 기능은 제작 대기중입니다.');history.back();</script>`));
 };
 
@@ -24,5 +40,46 @@ function GetDefault(str, defaultValue) {
 
 };
 
+function TextWithoutHTML(str) {
+    let result = '';
+
+    try {
+
+        if (!IsNullOrEmpty(str)) {
+            result = str.replace(/<[^>]+>/g, '')
+        };
+
+    } catch(e) {
+
+        return e.message;
+
+    }
+        
+    return result;
+};
+
+function NumberWithComma(num) {
+    
+    let result = '';
+
+    try {
+
+        if (!IsNullOrEmpty(num)) {
+            result = Number(num).toLocaleString("ko-KR");
+        };
+
+    } catch(e) {
+
+        return e.message;
+
+    }
+        
+    return result;
+
+};
+
+module.exports.isNullOrEmpty = IsNullOrEmpty;
 module.exports.blockPage = BlockPage;
 module.exports.getDefault = GetDefault;
+module.exports.textWithoutHTML = TextWithoutHTML;
+module.exports.numberWithComma = NumberWithComma;

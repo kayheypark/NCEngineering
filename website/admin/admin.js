@@ -25,6 +25,23 @@ admin.set("layout extractScripts", true);
 admin.set("layout extractStyles", true);
 admin.set('view engine', 'ejs');
 
+let siteInfo = {
+};
+
+/************************************************************
+   Return Functions for EJS
+************************************************************/
+
+siteInfo["isNullOrEmpty"] = function(str) {
+    return fn.isNullOrEmpty(str);
+};
+siteInfo["textWithoutHTML"] = function(str) {
+    return fn.textWithoutHTML(str);
+};
+siteInfo["numberWithComma"] = function(str) {
+    return fn.numberWithComma(str);
+};
+
 //Page List
 admin.get('/', (req, res) => {
     res.render('pages/login', {layout: false});
