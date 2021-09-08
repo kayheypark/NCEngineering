@@ -48,7 +48,7 @@ function RequestGet(name) {
 function GetJson(rootNode) {
     let jsonData = new Object;
     $(`${rootNode} input, ${rootNode} select, ${rootNode} textarea`).each(function() {
-        eval(`jsonData['"'+$(this).attr('id')+'"'] = $(this).val();`);
+        eval(`jsonData[$(this).attr('id')] = $(this).val();`);
     });
     return jsonData;
 };

@@ -34,7 +34,7 @@
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>번호</th>
+                                    <th>고유번호</th>
                                     <th>제품명</th>
                                     <th>등록일</th>
                                     <th>최근수정일</th>
@@ -45,7 +45,7 @@
                                 <% if ( data.length > 0 ) { %>
                                     <% for ( [index, row] of data.entries() ) { %>
                                         <tr>
-                                            <td><%= index+1 %></td>
+                                            <td><%= row.ProductSeq %></td>
                                             <td>
                                                 <p class="clamp-2 mb-0">
                                                     <%= row.Name %>
