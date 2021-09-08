@@ -24,60 +24,65 @@
                 <h1 class="h3 mb-0 text-gray-800"><%= pagename %></h1>
             </div>
 
-            <div class="row">
-                <div class="col-lg-12 mb-4">
-                    <!-- Illustrations -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">제품 정보</h6>
-                        </div>
-                        <div class="card-body">
-                            <form onsubmit="return false;">
-                                <input type="hidden" name="Seq" id="Seq" value="-1" />
-                                <div class="row">
-                                    <div class="col-8 mb-3">
-                                        <label for="Name">제품명</label>
-                                        <input type="text" name="Name" id="Name" value="" placeholder="제품명을 입력해주세요" class="form-control" disabled />
-                                    </div>
-                                    <div class="col-4 mb-3">
-                                        <label for="IsShow">공개여부</label>
-                                        <select name="IsShow" id="IsShow" class="form-control" disabled>
-                                            <option value="1" checked>공개</option>
-                                            <option value="0">비공개</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="Price">가격</label>
-                                        <input type="number" name="Price" id="Price" value="" min="0" placeholder="가격을 입력해주세요" class="form-control" disabled />
-                                    </div>
+            <% if ( data !== null ) { %>
+                <% let row = data; %>
 
-                                    <div class="col-12 mb-3">
-                                        <label for="Content">내용</label>
-                                        <input type="text" name="Content" id="Content" value="" placeholder="내용을 입력해주세요" class="form-control" disabled />
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <!-- Illustrations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">제품 정보</h6>
+                            </div>
+                            <div class="card-body">
+                                <form onsubmit="return false;">
+                                    <input type="hidden" name="Seq" id="Seq" value="-1" />
+                                    <div class="row">
+                                        <div class="col-8 mb-3">
+                                            <label for="Name">제품명</label>
+                                            <input type="text" name="Name" id="Name" value="<%= row.Name %>" placeholder="제품명을 입력해주세요" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-4 mb-3">
+                                            <label for="IsShow">공개여부</label>
+                                            <select name="IsShow" id="IsShow" class="form-control" disabled>
+                                                <option value="1" checked>공개</option>
+                                                <option value="0">비공개</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="Price">가격</label>
+                                            <input type="number" name="Price" id="Price" value="<%= row.Price %>" min="0" placeholder="가격을 입력해주세요" class="form-control" disabled />
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label for="Description">내용</label>
+                                            <input type="text" name="Description" id="Description" value="<%= row.Description %>" placeholder="내용을 입력해주세요" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="ThumbnailURL">썸네일</label>
+                                            <input type="file" name="ThumbnailURL" id="ThumbnailURL" value="" placeholder="썸네일을 입력해주세요" class="form-control" disabled />
+                                        </div>
                                     </div>
-                                    <div class="col-12 mb-3">
-                                        <label for="ThumbnailURL">썸네일</label>
-                                        <input type="file" name="ThumbnailURL" id="ThumbnailURL" value="" placeholder="썸네일을 입력해주세요" class="form-control" disabled />
-                                    </div>
-                                </div>
-                                <hr />
-                                <button onclick="history.back();" type="button" class="btn btn-secondary btn-icon-split btn-sm float-left">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-arrow-left"></i>
-                                    </span>
-                                    <span class="text">목록</span>
-                                </button>
-                                <a href="/product/edit?ProductSeq=1" class="btn btn-primary btn-icon-split btn-sm float-right">
-                                    <span class="text">수정</span>
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                </a>
-                            </form>
+                                    <hr />
+                                    <a href="/product/list" class="btn btn-secondary btn-icon-split btn-sm float-left">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </span>
+                                        <span class="text">목록</span>
+                                    </a>
+                                    <a href="/product/edit?ProductSeq=<%= row.ProductSeq %>" class="btn btn-primary btn-icon-split btn-sm float-right">
+                                        <span class="text">수정</span>
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                    </a>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+            <% } %>
 
 
             <!-- Content Row -->

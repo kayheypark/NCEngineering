@@ -127,7 +127,41 @@ admin.get('/product/list', (req, res) => {
 });
 
 admin.get('/product/view', (req, res) => {
-    res.render('pages/product/view', {pagename: '제품 상세화면'});
+    let seq = fn.getNumber(req.query.ProductSeq, -1);
+    let query = `select * from product where IsShow=1 and IsEnabled=1 and ProductSeq=${seq}`;
+    console.log('실행된쿼리', query);
+
+    global.pool.getConnection((err, connection) => {
+        
+        if (err) throw err;
+
+        connection.query(query, (err, rows) => {
+
+            connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
+
+            if ( !err ) {
+
+                if ( rows.length > 0 ) {
+
+                    res.render('pages/product/view', {pagename: '제품 상세화면', data: rows[0]});
+                    console.log('rows[0]', rows[0]);
+                    
+                } else {
+
+                    return res.send({ look: true, msg: '대상이 없습니다', data: null });
+
+                };
+
+            } else {
+
+                console.log(err);
+
+            };
+
+        });
+
+    });
+    
 });
 admin.get('/product/edit', (req, res) => {
 
