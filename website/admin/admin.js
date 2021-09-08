@@ -92,7 +92,7 @@ admin.get('/footer', (req, res) => {
 
 admin.get('/product/list', (req, res) => {
 
-    let query = `select * from product where IsShow=1 and IsEnabled=1 order by RegistDate desc`;
+    let query = `select * from product where IsEnabled=1 order by RegistDate desc`;
 
     global.pool.getConnection((err, connection) => {
         
