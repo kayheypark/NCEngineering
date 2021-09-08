@@ -43,3 +43,12 @@ function RequestGet(name) {
     }
     return result;
 };
+
+//GetJson, 박경호, 2021-09-08
+function GetJson(rootNode) {
+    let jsonData = new Object;
+    $(`${rootNode} input, ${rootNode} select, ${rootNode} textarea`).each(function() {
+        eval(`jsonData['"'+$(this).attr('id')+'"'] = $(this).val();`);
+    });
+    return jsonData;
+};
