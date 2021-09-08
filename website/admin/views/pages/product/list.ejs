@@ -54,11 +54,11 @@
                                             <td><%= (row.RegistDate).toLocaleDateString('kr-KO') %></td>
                                             <td><%= (row.LastUpdate).toLocaleDateString('kr-KO') %></td>
                                             <td>
-                                                <a href="/product/view?ProductSeq=<%= row.ProductSeq %>" class="btn btn-info btn-icon-split btn-sm">
+                                                <a href="/product/view?ProductSeq=<%= row.ProductSeq %>" class="btn btn-primary btn-icon-split btn-sm">
+                                                    <span class="text">상세화면</span>
                                                     <span class="icon text-white-50">
-                                                        <i class="fas fa-eye"></i>
+                                                        <i class="fas fa-arrow-right"></i>
                                                     </span>
-                                                    <span class="text">보기</span>
                                                 </a>
                                             </td>
                                         </tr>
