@@ -128,7 +128,7 @@ admin.get('/product/list', (req, res) => {
 
 admin.get('/product/view', (req, res) => {
     let seq = fn.getNumber(req.query.ProductSeq, -1);
-    let query = `select * from product where IsShow=1 and IsEnabled=1 and ProductSeq=${seq}`;
+    let query = `select * from product where IsEnabled=1 and ProductSeq=${seq}`;
     console.log('실행된쿼리', query);
 
     global.pool.getConnection((err, connection) => {
@@ -168,7 +168,7 @@ admin.get('/product/edit', (req, res) => {
     let seq = fn.getNumber(req.query.ProductSeq, -1);
 
     if ( seq > 0 ) {
-        let query = `select * from product where IsShow=1 and IsEnabled=1 and ProductSeq=${seq}`;
+        let query = `select * from product where IsEnabled=1 and ProductSeq=${seq}`;
         console.log('실행된쿼리', query);
 
         global.pool.getConnection((err, connection) => {
@@ -319,20 +319,34 @@ admin.post('/Api/Product/Edit', (req, res) => {
         let Description = fn.getDefault(req.body.Description, null);
         let Price = fn.getNumber(req.body.Price, -1);
         let ThumbnailURL = fn.getDefault(req.body.ThumbnailURL, null);
-        let query = `
-        UPDATE Product SET 
-        Name = ${Name}, 
-        IsShow = ${IsShow}, 
-        Description = ${Description}, 
-        Price = ${Price}, 
-        ThumbnailURL = ${ThumbnailURL}
-        WHERE ProductSeq=${Seq}
-        `;
-        res.json({msg: '수정완료'});
+        let query = `UPDATE Product SET Name = '${Name}', IsShow = '${IsShow}', Description = '${Description}', Price = ${Price}, ThumbnailURL = '${ThumbnailURL}' WHERE ProductSeq=${Seq}`;
         console.log('수정 쿼리:', query);
+        global.pool.getConnection((err, connection) => {
+        
+            if (err) throw err;
+    
+            connection.query(query, (err, rows) => {
+
+                connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
+    
+                if ( !err ) {
+
+                    res.json({msg: '정상적으로 제품 수정이 완료되었습니다.', check: true});
+
+                } else {
+
+                    res.json({msg: '제품 수정에 실패하였습니다. 관리자에게 문의 바랍니다.', check: false});
+                    console.log(err);
+
+                };
+    
+            });
+    
+        });
+        
+        
     } else {
         let Name = fn.getDefault(req.body.Name, null);
-        console.log('Name', Name);
         let IsShow = fn.getDefault(req.body.IsShow, null);
         let Description = fn.getDefault(req.body.Description, null);
         let Price = fn.getNumber(req.body.Price, -1);
