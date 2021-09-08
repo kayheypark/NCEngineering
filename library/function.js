@@ -40,6 +40,43 @@ function GetDefault(str, defaultValue) {
 
 };
 
+function GetNumber(str, defValue) {
+    let result = 0;
+
+    try {
+        if (str !== null && str !== undefined) {
+            if (IsNumeric(str)) {
+                result = Number(str);
+            } else {
+                result = defValue;
+            }
+        } else {
+            result = defValue;
+        }
+    } catch (e) {
+        result = defValue;
+    }
+
+    return result;
+};
+
+function IsNumeric(str) {
+    let result = false;
+
+    try {
+        if (str !== null && String(str).trim() !== "") {
+            let regex = /[0-9]+/g;
+            result = regex.test(str);
+        } else {
+            result = false;
+        }
+    } catch (e) {
+        result = false;
+    }
+
+    return result;
+};
+
 function TextWithoutHTML(str) {
     let result = '';
 
@@ -81,5 +118,6 @@ function NumberWithComma(num) {
 module.exports.isNullOrEmpty = IsNullOrEmpty;
 module.exports.blockPage = BlockPage;
 module.exports.getDefault = GetDefault;
+module.exports.getNumber = GetNumber;
 module.exports.textWithoutHTML = TextWithoutHTML;
 module.exports.numberWithComma = NumberWithComma;
