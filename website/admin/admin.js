@@ -166,39 +166,45 @@ admin.get('/product/view', (req, res) => {
 admin.get('/product/edit', (req, res) => {
 
     let seq = fn.getNumber(req.query.ProductSeq, -1);
-    let query = `select * from product where IsShow=1 and IsEnabled=1 and ProductSeq=${seq}`;
-    console.log('실행된쿼리', query);
 
-    global.pool.getConnection((err, connection) => {
-        
-        if (err) throw err;
+    if ( seq > 0 ) {
+        let query = `select * from product where IsShow=1 and IsEnabled=1 and ProductSeq=${seq}`;
+        console.log('실행된쿼리', query);
 
-        connection.query(query, (err, rows) => {
+        global.pool.getConnection((err, connection) => {
+            
+            if (err) throw err;
 
-            connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
+            connection.query(query, (err, rows) => {
 
-            if ( !err ) {
+                connection.release(); // return the connection to pool (커넥션을 끝내는 구문으로 반드시 존재해야함)
 
-                if ( rows.length > 0 ) {
+                if ( !err ) {
 
-                    res.render('pages/product/edit', {pagename: '제품 수정', data: rows[0]});
-                    console.log('rows[0]', rows[0]);
-                    
+                    if ( rows.length > 0 ) {
+
+                        res.render('pages/product/edit', {pagename: '제품 수정', data: rows[0]});
+                        console.log('rows[0]', rows[0]);
+                        
+                    } else {
+
+                        return res.send({ look: true, msg: '대상이 없습니다', data: null });
+
+                    };
+
                 } else {
 
-                    return res.send({ look: true, msg: '대상이 없습니다', data: null });
+                    console.log(err);
 
                 };
 
-            } else {
-
-                console.log(err);
-
-            };
+            });
 
         });
-
-    });
+        
+    } else {
+        res.render('pages/product/edit', {pagename: '제품 등록', data: null});
+    };
     
 });
 admin.get('/product/new', (req, res) => {

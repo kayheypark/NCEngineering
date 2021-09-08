@@ -36,7 +36,7 @@
                             </div>
                             <div class="card-body">
                                 <form id="Frm" onsubmit="return fnSaveProduct();">
-                                    <input type="hidden" name="Seq" id="Seq" value="-1" />
+                                    <input type="hidden" name="Seq" id="Seq" value="<%= row.ProductSeq %>" />
                                     <div class="row">
                                         <div class="col-8 mb-3">
                                             <label for="Name">제품명</label>
@@ -93,38 +93,115 @@
                     </div>
                 </div>
 
-            <% } %>
-
-
-            <!-- Content Row -->
-            <div class="row">
-                <div class="col-lg-12 mb-4">
-                    <!-- Illustrations -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">현재 페이지 안내</h6>
-                        </div>
-                        <div class="card-body">
-                            <p class="text-center">
-                                제품을 등록하는 화면입니다.<br />
-                                수정이 끝나면 꼭 저장 버튼을 눌러주세요.<br />
-                                삭제버튼은 '공개여부'를 비공개로 선택되었을 때만 보입니다.
-                            </p>
-
-                            <div class="text-center">
-                                <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                                    src="/vendor/img/undraw_Customer_survey_re_v9cj.svg" alt="...">
+            <% } else { %>
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <!-- Illustrations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">제품 정보</h6>
                             </div>
-                            <!-- <p>Add some quality, svg illustrations to your project courtesy of <a
-                                    target="_blank" rel="nofollow" href="https://undraw.co/">unDraw</a>, a
-                                constantly updated collection of beautiful svg images that you can use
-                                completely free and without attribution!</p>
-                            <a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
-                                unDraw &rarr;</a> -->
+                            <div class="card-body">
+                                <form id="Frm" onsubmit="return fnSaveProduct();">
+                                    <input type="hidden" name="Seq" id="Seq" value="-1" />
+                                    <div class="row">
+                                        <div class="col-8 mb-3">
+                                            <label for="Name">제품명</label>
+                                            <input type="text" name="Name" id="Name" value="" placeholder="제품명을 입력해주세요" class="form-control" required />
+                                        </div>
+                                        <div class="col-4 mb-3">
+                                            <label for="IsShow">공개여부</label>
+                                            <select name="IsShow" id="IsShow" class="form-control">
+                                                <option value="1" checked>공개</option>
+                                                <option value="0">비공개</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="Price">가격</label>
+                                            <input type="number" name="Price" id="Price" value="" min="0" placeholder="가격을 입력해주세요" class="form-control" required />
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label for="Description">내용</label>
+                                            <input type="text" name="Description" id="Description" value="" placeholder="내용을 입력해주세요" class="form-control" required />
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label for="ThumbnailURL">썸네일</label>
+                                            <input type="file" name="ThumbnailURL" id="ThumbnailURL" value="" placeholder="썸네일을 입력해주세요" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <a href="/product/list" class="btn btn-secondary btn-icon-split btn-sm float-left">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-left"></i>
+                                        </span>
+                                        <span class="text">목록</span>
+                                    </a>
+                                    <button type="submit" class="btn btn-primary btn-icon-split btn-sm float-right">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                        <span class="text">저장</span>
+                                    </button>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            <% } %>
+
+            <% if ( data !== null ) { %>
+                
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <!-- Illustrations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">현재 페이지 안내</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-center">
+                                    제품을 수정하는 화면입니다.<br />
+                                    수정이 끝나면 꼭 저장 버튼을 눌러주세요.<br />
+                                    삭제버튼은 '공개여부'를 비공개로 선택되었을 때만 보입니다.
+                                </p>
+
+                                <div class="text-center">
+                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                        src="/vendor/img/undraw_Customer_survey_re_v9cj.svg" alt="...">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <% } else { %>
+
+                <div class="row">
+                    <div class="col-lg-12 mb-4">
+                        <!-- Illustrations -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">현재 페이지 안내</h6>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-center">
+                                    제품을 등록하는 화면입니다.
+                                </p>
+    
+                                <div class="text-center">
+                                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+                                        src="/vendor/img/undraw_Customer_survey_re_v9cj.svg" alt="...">
+                                </div>
+    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <% } %>
 
         </div>
         <!-- /.container-fluid -->
