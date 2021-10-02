@@ -50,6 +50,9 @@ front.get('/contact', (req, res) => {
 front.get('/about', (req, res) => {
     res.render('about', {pagename:'회사소개', pagecategory: 'about'});
 });
+front.get('/milestone', (req, res) => {
+    res.render('milestone', {pagename:'회사소개', pagecategory: 'about'});
+});
 front.get('/notice', (req, res) => {
     res.render('notice', {pagename:'공지사항', pagecategory: 'notice'});
 });

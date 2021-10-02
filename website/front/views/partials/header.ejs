@@ -25,7 +25,11 @@
                                 <a href="/">Home</a>
                             </li>
                             <li class="gnb-depth-1 <%= (pagecategory == 'about') ? className : '' %>">
-                                <a href="/about">NCENG</a>
+                                <a href="/about">About</a>
+                                <ul>
+                                    <li><a href="/about">회사소개</a></li>
+                                    <li><a href="/milestone">회사연혁</a></li>
+                                </ul><!-- /.sub-menu -->
                             </li>
                             <li class="gnb-depth-1 dropdown">
                                 <a href="#">Product</a>
@@ -36,7 +40,7 @@
                                 </ul><!-- /.sub-menu -->
                             </li>
                             <li class="gnb-depth-1 dropdown <%= (pagecategory == 'notice') ? className : '' %>">
-                                <a href="#">Notice</a>
+                                <a href="/notice">Notice</a>
                                 <ul>
                                     <li><a href="/notice">공지사항</a></li>
                                     <li><a href="/faq">FAQ</a></li>
