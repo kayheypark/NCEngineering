@@ -53,6 +53,9 @@ front.get('/about', (req, res) => {
 front.get('/notice', (req, res) => {
     res.render('notice', {pagename:'공지사항', pagecategory: 'notice'});
 });
+front.get('/noticedetail', (req, res) => {
+    res.render('noticedetail', {pagename:'공지사항 상세보기', pagecategory: 'notice'});
+});
 
 
 //Api List
