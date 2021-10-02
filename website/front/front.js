@@ -43,6 +43,9 @@ siteInfo["numberWithComma"] = function(str) {
 front.get('/', (req, res) => {
     res.render('main', {pagename:'메인'});
 });
+front.get('/contact', (req, res) => {
+    res.render('contact', {pagename:'컨택트'});
+});
 
 
 //Api List
