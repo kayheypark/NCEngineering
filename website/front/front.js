@@ -13,6 +13,7 @@ front.use(express.json());
 // Static Files
 front.use('partials', express.static(__dirname + '/views/partials'));
 front.use('/assets', express.static(__dirname + '/public/vendor'));
+front.use('/asset', express.static(__dirname + '/public/assets'));
 
 // Set Templating Engine
 front.use(expressLayouts);
@@ -41,10 +42,13 @@ siteInfo["numberWithComma"] = function(str) {
 
 //Page List
 front.get('/', (req, res) => {
-    res.render('main', {pagename:'메인'});
+    res.render('main', {pagename:'메인', pagecategory: 'main'});
 });
 front.get('/contact', (req, res) => {
-    res.render('contact', {pagename:'컨택트'});
+    res.render('contact', {pagename:'문의하기', pagecategory: 'contact'});
+});
+front.get('/about', (req, res) => {
+    res.render('about', {pagename:'회사소개', pagecategory: 'about'});
 });
 
 

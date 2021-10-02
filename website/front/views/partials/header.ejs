@@ -19,15 +19,15 @@
                     </div>
 
                     <div class="main-nav__main-navigation one float-right">
-                        <ul class=" main-nav__navigation-box float-left">
-                            <!-- 모바일 -->
-                            <li class="current">
+                        <ul class="main-nav__navigation-box float-left">
+                            <% let className = 'current' %>
+                            <li class="gnb-depth-1 <%= (pagecategory == 'main') ? className : '' %>">
                                 <a href="/">Home</a>
                             </li>
-                            <li>
-                                <a href="#">NCENG</a>
+                            <li class="gnb-depth-1 <%= (pagecategory == 'about') ? className : '' %>">
+                                <a href="/about">NCENG</a>
                             </li>
-                            <li class="dropdown">
+                            <li class="gnb-depth-1 dropdown">
                                 <a href="#">Product</a>
                                 <ul>
                                     <li><a href="blog.html">전자 시험기</a></li>
@@ -35,20 +35,20 @@
                                     <li><a href="blog.html">최첨단 시험기</a></li>
                                 </ul><!-- /.sub-menu -->
                             </li>
-                            <li class="dropdown">
+                            <li class="gnb-depth-1 dropdown">
                                 <a href="#">Notice</a>
                                 <ul>
                                     <li><a href="services-details.html">공지사항</a></li>
                                     <li><a href="services.html">FAQ</a></li>
                                 </ul><!-- /.sub-menu -->
                             </li>
-                            <li>
+                            <li class="gnb-depth-1 <%= (pagecategory == 'contact') ? className : '' %>">
                                 <a href="/contact">Contact</a>
                             </li>
                         </ul>
                         <div class="main-nav__right main-nav__right_one float-left">
                             <div class="header_btn_1">
-                                <a href="contact.html">문의하기</a>
+                                <a href="/contact">문의하기</a>
                             </div>
                         </div>
                     </div><!-- /.navbar-collapse -->
