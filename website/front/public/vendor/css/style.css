@@ -6534,7 +6534,8 @@ li {
   background: #f6f6f6;
   padding: 100px 0 100px;
 }
-.all_contact_info_inner:before {
+/* 왼쪽만 나오는 이유로 주석처리 */
+/* .all_contact_info_inner:before {
   position: absolute;
   top: 0;
   left: -100000px;
@@ -6542,7 +6543,7 @@ li {
   right: 0;
   content: "";
   background: #f6f6f6;
-}
+} */
 .all_contact_info_single {
 }
 .all_contact_info_single .icon,
