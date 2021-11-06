@@ -35,7 +35,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">제품 정보</h6>
                             </div>
                             <div class="card-body">
-                                <form id="Frm" onsubmit="return fnSaveProduct();">
+                                <form id="Frm" enctype="multipart/form-data" onsubmit="return fnSaveProduct();">
                                     <input type="hidden" name="Seq" id="Seq" value="<%= row.ProductSeq %>" />
                                     <div class="row">
                                         <div class="col-8 mb-3">
@@ -60,11 +60,18 @@
                                         </div>
                                         <div class="col-12 mb-3">
                                             <label for="ThumbnailURL">썸네일</label>
-                                            <input type="file" name="ThumbnailURL" id="ThumbnailURL" value="" placeholder="썸네일을 입력해주세요" class="form-control" />
-                                            <% if ( row.ThumbnailURL !== null ) { %>
-                                                <ul>
-                                                    <li><%= row.ThumbnailURL %></li>
+                                            <input type="file" multiple oninput="fnOnchangeThumbnail(this.id, 'Frm');" name="file" id="file" class="form-control" />
+                                            <% if (row.ThumbnailURL !== null && row.ThumbnailURL !== '') { %>
+                                                <ul id="ThumbnailList">
+                                                    <li>
+                                                        <figure>
+                                                            <img src="<%= row.ThumbnailURL %>" alt="222.png" />
+                                                            <figcaption>222.png</figcaption>
+                                                        </figure>
+                                                    </li>
                                                 </ul>
+                                            <% } else { %>
+                                                <p class="message-null">등록된 썸네일이 없습니다.</p>
                                             <% } %>
                                         </div>
                                     </div>
@@ -102,7 +109,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">제품 정보</h6>
                             </div>
                             <div class="card-body">
-                                <form id="Frm" onsubmit="return fnSaveProduct();">
+                                <form id="Frm" enctype="multipart/form-data" onsubmit="return fnSaveProduct();">
                                     <input type="hidden" name="Seq" id="Seq" value="-1" />
                                     <div class="row">
                                         <div class="col-8 mb-3">
@@ -279,5 +286,41 @@
         return false;
 
     };
+
+    //썸네일이 온체인지 되었을 때, 빅경호, 2021-11-07
+    function fnOnchangeThumbnail(inputID, formID) {
+
+        if ( document.getElementById(inputID) !== null ) {
+            if ( document.getElementById(formID) !== null ) {
+                if ( $('#'+inputID).val() !== '' ) {
+
+                    fnUploadFile(formID, function(rst) {
+
+                        let tag = '';
+                        tag += `
+                            <li>
+                                <figure>
+                                    <img src="/${rst.path}" alt="${rst.name}" />
+                                    <figcaption>${rst.name}</figcaption>
+                                </figure>
+                            </li>
+                        `;
+
+                        $('#ThumbnailList').append(tag);
+                        $('#'+inputID).val('');
+
+                    });
+                
+                };
+            } else {
+                console.error('매개변수 formID로 노드를 찾을 수 없습니다.');
+            };
+
+        } else {
+            console.error('매개변수 inputID로 노드를 찾을 수 없습니다.');
+        };
+
+    };
+
 
 </script>

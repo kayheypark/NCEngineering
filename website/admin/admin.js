@@ -25,7 +25,6 @@ admin.use(express.urlencoded({extended: false}));
 admin.use(express.json());
 
 // Static Files
-admin.use('up', express.static(__dirname + '/up'));
 admin.use('/assets', express.static(__dirname + '/public/assets'));
 admin.use('/vendor', express.static(__dirname + '/public/vendor'));
 
@@ -388,12 +387,13 @@ admin.post('/Api/Product/Edit', (req, res) => {
 
 // Multer Upload
 admin.post('/Api/upload', upload.single('file'), (req, res) => {
-    console.log(req.file);
-    res.json(req.file);
+    res.json({msg: '파일등록완료', data: {path: req.file.path, name: req.file.originalname}, check: true});
 });
-admin.post('/Api/upload', upload.array('file', 10), (req, res) => {
+admin.post('/Api/uploads', upload.array('file', 10), (req, res) => {
     console.log(req.files);
     res.json(req.files);
 });
+
+console.log('path.resolve(__dirname)', path.resolve(__dirname));
 
 module.exports = admin;

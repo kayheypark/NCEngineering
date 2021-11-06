@@ -2,7 +2,7 @@
 
 window.onload = function() {
 
-    fnCheckLoginCookie();
+    //fnCheckLoginCookie();
 
 };
 
@@ -89,4 +89,35 @@ async function fnLogin() {
 //로그아웃하기
 function fnLogout() {
     document.location.href = '/';
+};
+
+//파일을 업로드한다, 박경호, 2021-11-07
+function fnUploadFile(formID, callback) {
+
+    if ( document.getElementById(formID) !== null ) {
+        if ( typeof callback == 'function' ) {
+            
+            let xhr = new XMLHttpRequest();
+            let formData = new FormData(document.getElementById(formID));
+            xhr.onload = function() {
+                let jsonResult = JSON.parse(xhr.responseText);
+                if (xhr.status === 200 || xhr.status === 201) {
+                    if ( jsonResult.check ) {
+                        callback(jsonResult.data);
+                    } else {
+                        Alert(jsonResult.msg);
+                    };
+                } else {
+                    console.error(jsonResult);
+                };
+            };
+
+            xhr.open('POST', '/Api/upload');
+            xhr.send(formData);
+
+        } else {
+            console.error('콜백 매개변수가 함수가 아닙니다.');
+        };
+    };
+        
 };

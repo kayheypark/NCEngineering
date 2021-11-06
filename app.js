@@ -11,6 +11,7 @@ app.use(vhost('admin.nceng.com', admin));
 app.use(vhost('www.nceng.com', front));
  
 app.use(express.static('static'));
+app.use('/upload', express.static(__dirname + '/upload'));
 
 app.use((req, res) => {
     res.status(404).send('대단합니다! 숨어있는 페이지를 발견하셨어요!')
