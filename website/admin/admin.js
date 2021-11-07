@@ -318,7 +318,7 @@ admin.post('/Api/Product/Edit', (req, res) => {
         let Description = fn.getDefault(req.body.Description, null);
         let Price = fn.getNumber(req.body.Price, -1);
         let ThumbnailURL = fn.getDefault(req.body.ThumbnailURL, null);
-        let query = `UPDATE Product SET Name = '${Name}', IsShow = '${IsShow}', Description = '${Description}', Price = ${Price}, ThumbnailURL = '${ThumbnailURL}', LastUpdate = now() WHERE ProductSeq=${Seq}`;
+        let query = `UPDATE Product SET Name = '${Name}', IsShow = '${IsShow}', Description = '${Description}', Price = ${Price}, ThumbnailURL = ${ThumbnailURL}, LastUpdate = now() WHERE ProductSeq=${Seq}`;
         console.log('수정 쿼리:', query);
         global.pool.getConnection((err, connection) => {
         

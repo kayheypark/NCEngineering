@@ -59,20 +59,22 @@
                                             <input type="text" name="Description" id="Description" value="<%= row.Description %>" placeholder="내용을 입력해주세요" class="form-control" required />
                                         </div>
                                         <div class="col-12 mb-3">
-                                            <label for="ThumbnailURL">썸네일</label>
-                                            <input type="file" multiple oninput="fnOnchangeThumbnail(this.id, 'Frm');" name="file" id="file" class="form-control" />
-                                            <% if (row.ThumbnailURL !== null && row.ThumbnailURL !== '') { %>
-                                                <ul id="ThumbnailList">
-                                                    <li>
+                                            <label>썸네일</label>
+                                            <br />
+                                            <button type="button" onclick="fnClick('file');" class="btn btn-info"><i class="fas fa-file-upload"></i> 업로드</button>
+                                            <input type="file" multiple oninput="fnOnchangeThumbnail(this.id, 'Frm', 1, 'ThumbnailList');" name="file" id="file" class="d-none form-control" />
+                                            <ul id="ThumbnailList" class="img-list">
+                                                <% if (row.ThumbnailURL !== null && row.ThumbnailURL !== '') { %>
+                                                    <li class="img-item">
                                                         <figure>
                                                             <img src="<%= row.ThumbnailURL %>" alt="222.png" />
                                                             <figcaption>222.png</figcaption>
                                                         </figure>
+                                                        <button type="button" onclick="fnOnclickDeleteImageItemButton(this, 'ThumbnailList')" class="btn btn-danger">삭제</button>
                                                     </li>
-                                                </ul>
-                                            <% } else { %>
-                                                <p class="message-null">등록된 썸네일이 없습니다.</p>
-                                            <% } %>
+                                                <% } %>
+                                            </ul>
+                                            <p id="ThumbnailListMessage" class="message-null">등록된 썸네일이 없습니다.</p>
                                         </div>
                                     </div>
                                     <hr />
@@ -287,40 +289,6 @@
 
     };
 
-    //썸네일이 온체인지 되었을 때, 빅경호, 2021-11-07
-    function fnOnchangeThumbnail(inputID, formID) {
-
-        if ( document.getElementById(inputID) !== null ) {
-            if ( document.getElementById(formID) !== null ) {
-                if ( $('#'+inputID).val() !== '' ) {
-
-                    fnUploadFile(formID, function(rst) {
-
-                        let tag = '';
-                        tag += `
-                            <li>
-                                <figure>
-                                    <img src="/${rst.path}" alt="${rst.name}" />
-                                    <figcaption>${rst.name}</figcaption>
-                                </figure>
-                            </li>
-                        `;
-
-                        $('#ThumbnailList').append(tag);
-                        $('#'+inputID).val('');
-
-                    });
-                
-                };
-            } else {
-                console.error('매개변수 formID로 노드를 찾을 수 없습니다.');
-            };
-
-        } else {
-            console.error('매개변수 inputID로 노드를 찾을 수 없습니다.');
-        };
-
-    };
 
 
 </script>
