@@ -385,6 +385,33 @@ admin.post('/Api/Product/Edit', (req, res) => {
 
 });
 
+//Api
+admin.post("/Api/Login", (req, res) => {
+    global.pool.getConnection((err, connection) => {
+
+        let Email = fn.getDefault(req.body.Email, null);
+        let Password = fn.getDefault(req.body.Password, null);
+
+        if (err) throw err;
+
+        connection.query(`SELECT * FROM Member WHERE Email='${Email}' AND Password='${Password}'`, (err, rows) => {
+            connection.release(); // return the connection to pool
+
+            if (!err) {
+                if (rows.length > 0) {
+                    res.send({check: true, msg: "등록된 계정을 발견했습니다.", data: rows[0].MemberSeq});
+                } else {
+                    res.send({check: false, msg: "해당정보로 등록된 계정이 없습니다.", data: null});
+                }
+            } else {
+                console.log(err);
+            };
+
+        });
+
+    });
+});
+
 // Multer Upload
 admin.post('/Api/upload', upload.single('file'), (req, res) => {
     res.json({msg: '파일등록완료', data: {path: req.file.path, name: req.file.originalname}, check: true});

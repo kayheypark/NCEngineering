@@ -1,10 +1,14 @@
 ﻿console.log('default.js');
-
-window.onload = function() {
-
-    //fnCheckLoginCookie();
-
+//로그인정보 변수
+var loginInfo = {
+    isLogin: false,
+    token: '',
+    memberSeq: -1
 };
+
+$(function(){
+    fnCheckLoginCookie();
+});
 
 //CLick, 박경호, 2021-11-07
 function fnClick(targetID) {
@@ -34,60 +38,52 @@ function Confirm(msg, callback) {
     };
 };
 
-//로그인정보 변수
-var loginInfo = {
-    isLogined: false,
-    token: ''
-};
+
 
 //로그인 쿠키 체크
-async function fnCheckLoginCookie() {
-    console.log('function fnCheckLoginCookie Started');
+function fnCheckLoginCookie() {
 
-    let response = await fetch('/Api/CheckLoginCookie', {
-        method: 'POST',
-        headers: {'Content-Type':'appplication/json'},
-        body: JSON.stringify({ jwt: getCookie('jwt') })
-    });
+    let getLoginInfo = $.cookie('NCAdmin');
 
-    let result = await response.text();
-
-    if ( result !== null ) {
-
-        document.location.href = '/main';
-
+    if (typeof getLoginInfo !== 'undefined') {
+        loginInfo.isLogin = true;
+        loginInfo.memberSeq = $.cookie('NCAdmin');
+        if (location.pathname == "/") {
+            document.location.href="/main";
+        };
     } else {
-
-
-
+        loginInfo.isLogin = false;
+        loginInfo.memberSeq = -1;
+        loginInfo.token = "";
     };
     
-
 };
 
 //로그인하기
-async function fnLogin() {
+function fnLogin() {
 
-    let Id = document.getElementById('Id');
-    let Password = document.getElementById('Password');
+    let Email = $("#Email").val();
+    let Password = $("#Password").val();
 
-    let response = await fetch('/Api/Login', {
-                        method: 'POST',
-                        headers: {'Content-Type':'appplication/json'},
-                        body: JSON.stringify({ id: Id, password: Password })
-                    });
+    $.post("/Api/Login", {Email:Email, Password:Password}, function(rst){
 
-    let result = await response.text(); // 토큰 획득
+        if (rst !== null) {
+            if (rst.check) {
+                console.log(rst);
 
-    if ( result == 'fail' || result.length == 0 ) {
-        alert('로그인 실패');
-    } else {
-        alert('로그인 성공', result);
-        document.cookie = `jwt=${result}`;
-        fnCheckLoginCookie();
-        
-    };
+                loginInfo.isLogin = true;
+                loginInfo.memberSeq = rst.data;
+                $.cookie('NCAdmin', rst.data, { expires: 7, path: '/'});
 
+                document.location.href = "/Main";
+                
+
+            } else {
+                Alert(rst.msg);
+            };
+        };
+
+    });
 
     return false;
 
@@ -95,7 +91,13 @@ async function fnLogin() {
 
 //로그아웃하기
 function fnLogout() {
-    document.location.href = '/';
+    Confirm("정말 로그아웃 하시겠습니까?", function(){
+        $.removeCookie('NCAdmin');
+        loginInfo.isLogin = false;
+        loginInfo.memberSeq = -1;
+        loginInfo.token = "";
+        document.location.href = '/';
+    })
 };
 
 //파일을 업로드한다, 박경호, 2021-11-07

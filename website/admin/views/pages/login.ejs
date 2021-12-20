@@ -39,7 +39,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">로그인</h1>
                                     </div>
-                                    <form class="user" method="post" onsubmit="return fnLogin();">
+                                    <form class="user" method="post" onsubmit="return false;">
                                         <div class="form-group">
                                             <input type="email" class="form-control form-control-user" id="Email" aria-describedby="emailHelp" placeholder="이메일을 입력해주세요" required />
                                         </div>
@@ -52,7 +52,7 @@
                                                 <label class="custom-control-label" for="customCheck">자동 로그인</label>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">로그인</button>
+                                        <button type="button" onclick="fnLogin();" class="btn btn-primary btn-user btn-block">로그인</button>
                                         <hr />
                                         <a href="//www.nceng.com" class="btn btn-success btn-user btn-block">고객용 홈페이지</a>
                                     </form>
@@ -68,18 +68,8 @@
 
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/vendor/vendor/jquery/jquery.min.js"></script>
-    <script src="/vendor/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <%- include('../partials/static/global-scripts.ejs') %>
 
-    <!-- Core plugin JavaScript-->
-    <script src="/vendor/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="/vendor/js/sb-admin-2.min.js"></script>
-
-    <script src="/assets/js/base.js"></script>
-    <script src="/assets/js/default.js"></script>
 
     <script>
         window.onload = function () {
